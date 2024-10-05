@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Детали пользователя</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Детали пользователя</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Имя пользователя: <span th:text="${user.username}"></span></h5>
+            <p class="card-text">Роли:
+            <ul>
+                <li th:each="role : ${user.authorities}" th:text="${role.authority}"></li>
+            </ul>
+            </p>
+            <p class="card-text">Другие детали пользователя:</p>
+            <p th:text="'Дата создания: ' + ${user.createdAt}"></p> <!-- Пример другого поля -->
+
+            <a th:href="@{/admin/{id}(id=${user.id})}" class="btn btn-info">Редактировать</a>
+            <form th:action="@{/admin/{id}(id=${user.id})}" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+            <a href="/admin" class="btn btn-secondary">Вернуться к списку</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Форма пользователя</title>
+</head>
+<body>
+<h1 th:if="${user.id == null}">Создать пользователя</h1>
+<h1 th:if="${user.id != null}">Редактировать пользователя</h1>
+<form action="#" th:action="@{/admin}" th:object="${user}" method="post">
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" th:field="*{username}" required />
+
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" th:field="*{password}" required />
+
+    <h3>Роли:</h3>
+    <div th:each="role : ${roles}">
+        <input type="checkbox" th:field="*{roles}" th:value="${role.name}" />
+        <label th:text="${role.name}"></label>
+    </div>
+
+    <button type="submit">Сохранить</button>
+</form>
+<a href="/admin">Вернуться в панель администратора</a>
+</body>
+</html>
