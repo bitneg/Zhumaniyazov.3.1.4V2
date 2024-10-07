@@ -7,15 +7,15 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import zhumaniyazov.boot.model.User;
 import zhumaniyazov.boot.service.PersonDetailsService;
-
 @Component
 public class UserValidator implements Validator {
+
     private final PersonDetailsService personDetailsService;
+
     @Autowired
     public UserValidator(PersonDetailsService personDetailsService) {
         this.personDetailsService = personDetailsService;
     }
-
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -25,12 +25,18 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
+
+        // Проверка на пустое имя пользователя
+        if (user.getUsername() == null || user.getUsername().isEmpty()) {
+            errors.rejectValue("username", "", "Имя пользователя не должно быть пустым!");
+            return;
+        }
+
         try {
             personDetailsService.loadUserByUsername(user.getUsername());
-        }catch (UsernameNotFoundException e){
-            return;
-
+            errors.rejectValue("username", "", "Человек с таким именем уже существует!");
+        } catch (UsernameNotFoundException e) {
+            // Имя пользователя уникально, ошибок нет
         }
-        errors.rejectValue("name","", "Человек с таким именем  уже существует!");
     }
 }

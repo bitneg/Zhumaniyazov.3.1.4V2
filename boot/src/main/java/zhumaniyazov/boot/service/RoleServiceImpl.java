@@ -26,4 +26,11 @@ public class RoleServiceImpl implements RoleService{
         return repositories.getById(id);
     }
 
+    public Role save(Role role) {
+        return repositories.save(role);
+    }
+    public Role findByName(String name) {
+        return repositories.findByName(name);
+    }
+
 }

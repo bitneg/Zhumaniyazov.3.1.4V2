@@ -16,7 +16,17 @@
             </ul>
             <div class="text-center mt-4">
                 <a href="/logout" class="btn btn-danger">Выйти</a>
+                <div th:if="${user.hasRole('ROLE_ADMIN')}" class="mt-2">
+                    <a href="/admin" class="btn btn-success">Вернуться на админ-панель</a>
+                </div>
             </div>
+            <div>
+                <h5>Ваши роли:</h5>
+                <ul>
+                    <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>

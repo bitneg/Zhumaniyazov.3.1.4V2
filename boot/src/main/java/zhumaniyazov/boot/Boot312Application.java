@@ -10,32 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = "zhumaniyazov.boot")
 
 public class Boot312Application/* implements CommandLineRunner*/ {
-/*
-    private final UserRepository userRepository;
 
-    private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    public Boot312Application(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    private void initAdminUser() {
-        Role adminRole = new Role();
-        adminRole.setName("ROLE_ADMIN");
-        roleRepository.save(adminRole);
-          User adminUser = new User();
-        adminUser.setUsername("admin");
-        adminUser.setPassword(passwordEncoder.encode("password"));
-
-
-        HashSet<Role> roles = new HashSet<>();
-        roles.add(adminRole);
-        adminUser.setRoles(roles);
-
-        userRepository.save(adminUser);*/
 
 
     public static void main(String[] args) {
@@ -46,10 +21,5 @@ public class Boot312Application/* implements CommandLineRunner*/ {
 
     }
 }
-  /*  @Override
-    public void run(String[] args) throws Exception {
-        initAdminUser();
-    }
 
-}
-*/
+

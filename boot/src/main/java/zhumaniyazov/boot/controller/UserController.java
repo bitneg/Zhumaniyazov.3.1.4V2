@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import zhumaniyazov.boot.model.User;
+import zhumaniyazov.boot.service.RoleService;
 import zhumaniyazov.boot.service.UserService;
 
 
@@ -13,9 +14,10 @@ import zhumaniyazov.boot.service.UserService;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-
-    public UserController(UserService userService) {
+private final RoleService roleService;
+    public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping()
@@ -24,6 +26,8 @@ public class UserController {
 
         model.addAttribute("user",user);
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("roles", roleService.getAllRoles());
+
         return "user/show";
     }
 }

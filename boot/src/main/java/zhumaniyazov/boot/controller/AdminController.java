@@ -43,8 +43,6 @@ public class AdminController {
     public String newUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleService.getAllRoles());
-        model.addAttribute("users", userService.getAllUsers());
-
         return "admin/new";
 
     }
@@ -52,16 +50,14 @@ public class AdminController {
     @PostMapping
     public String create(Model model, @ModelAttribute("user") User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
-
         if (bindingResult.hasErrors()) {
+            model.addAttribute("roles", roleService.getAllRoles()); // Сохраняем роли
             return "admin/new";
         }
         userService.saveUser(user);
-        model.addAttribute("users", userService.getAllUsers());
-
         return "redirect:/admin";
-
     }
+
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") long id) {

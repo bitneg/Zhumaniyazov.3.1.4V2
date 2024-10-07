@@ -20,12 +20,13 @@ public class PersonDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .map(user -> (UserDetails) user)
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с именем " + username + " не найден"));}
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Пользователь не найден: " + username);
+        }
+        return user;
 
 
 
-}
+}}

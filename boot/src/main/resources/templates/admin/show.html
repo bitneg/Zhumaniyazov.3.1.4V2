@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Детали пользователя</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Форма пользователя</title>
 </head>
 <body>
-<div class="container">
-    <h1>Детали пользователя</h1>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Имя пользователя: <span th:text="${user.username}"></span></h5>
-            <p class="card-text">Роли:
-            <ul>
-                <li th:each="role : ${user.authorities}" th:text="${role.authority}"></li>
-            </ul>
-            </p>
-            <p class="card-text">Другие детали пользователя:</p>
-            <p th:text="'Дата создания: ' + ${user.createdAt}"></p> <!-- Пример другого поля -->
+<h1 th:if="${user.id == null}">Создать пользователя</h1>
+<h1 th:if="${user.id != null}">Редактировать пользователя</h1>
+<form action="#" th:action="@{/admin}" th:object="${user}" method="post">
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" th:field="*{username}" required />
 
-            <a th:href="@{/admin/{id}(id=${user.id})}" class="btn btn-info">Редактировать</a>
-            <form th:action="@{/admin/{id}(id=${user.id})}" method="post" style="display:inline;">
-                <input type="hidden" name="_method" value="delete" />
-                <button type="submit" class="btn btn-danger">Удалить</button>
-            </form>
-            <a href="/admin" class="btn btn-secondary">Вернуться к списку</a>
-        </div>
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" th:field="*{password}" required />
+
+    <h3>Роли:</h3>
+    <div th:each="role : ${roles}">
+        <input type="checkbox" th:field="*{roles}" th:value="${role.id}"
+               th:checked="${user.roles.contains(role)}" />
+        <label th:text="${role.name}"></label>
     </div>
-</div>
+
+    <button type="submit">Сохранить</button>
+</form>
+<a href="/admin">Вернуться в панель администратора</a>
 </body>
 </html>
