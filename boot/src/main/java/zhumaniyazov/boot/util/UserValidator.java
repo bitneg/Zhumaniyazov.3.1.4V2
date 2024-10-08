@@ -27,14 +27,14 @@ public class UserValidator implements Validator {
         User user = (User) target;
 
         // Проверка на пустое имя пользователя
-        if (user.getUsername() == null || user.getUsername().isEmpty()) {
-            errors.rejectValue("username", "", "Имя пользователя не должно быть пустым!");
+        if (user.getName() == null || user.getName().isEmpty()) {
+            errors.rejectValue("name", "", "Имя пользователя не должно быть пустым!");
             return;
         }
 
         try {
-            personDetailsService.loadUserByUsername(user.getUsername());
-            errors.rejectValue("username", "", "Человек с таким именем уже существует!");
+            personDetailsService.loadUserByUsername(user.getName());
+            errors.rejectValue("name", "", "Человек с таким именем уже существует!");
         } catch (UsernameNotFoundException e) {
             // Имя пользователя уникально, ошибок нет
         }

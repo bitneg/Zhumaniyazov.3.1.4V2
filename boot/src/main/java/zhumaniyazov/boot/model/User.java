@@ -1,8 +1,6 @@
 package zhumaniyazov.boot.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,11 +8,8 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Builder
 
@@ -29,12 +24,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String username;
-    private String firstname;
-    private String lastname;
-    private String email;
+    private String name;
+    private String surname;
     private long age;
-
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -62,9 +54,8 @@ public class User implements UserDetails {
         return password;
     }
 
-    @Override
     public String getUsername() {
-        return username;
+        return name;
     }
 
 

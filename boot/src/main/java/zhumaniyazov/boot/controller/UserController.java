@@ -14,26 +14,21 @@ import zhumaniyazov.boot.service.UserService;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-private final RoleService roleService;
-    public UserController(UserService userService, RoleService roleService) {
+
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     @GetMapping()
     public String show(Model model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        model.addAttribute("user",user);
+        model.addAttribute("authUser",authUser);
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("roles", roleService.getAllRoles());
-
-        return "user/show";
+        return "user";
     }
+
 }
-
-
-
 
 
 

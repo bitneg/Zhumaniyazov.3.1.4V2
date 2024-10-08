@@ -11,7 +11,7 @@ import zhumaniyazov.boot.service.UserService;
 import zhumaniyazov.boot.util.UserValidator;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/")
 public class AuthController {
 
 

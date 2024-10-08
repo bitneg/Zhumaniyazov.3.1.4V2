@@ -8,6 +8,7 @@ import zhumaniyazov.boot.model.User;
 import zhumaniyazov.boot.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,16 +29,21 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void updateUser(Long id, User user) {
-        User user1 = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("пользователь не обнаружен его id: " + id));
-        user1.setUsername(user.getUsername());
-        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-            user1.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        user1.setRoles(user.getRoles());
-        userRepository.save(user1);
-    }
+        Optional<User> existingUserOptional = userRepository.findById(id);
 
+        if (existingUserOptional.isPresent()) {
+            User existingUser = existingUserOptional.get();
+            existingUser.setName(user.getName());
+            existingUser.setSurname(user.getSurname());
+            existingUser.setAge(user.getAge());
+            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+                String hashedPassword = passwordEncoder.encode(user.getPassword());
+                existingUser.setPassword(hashedPassword);
+            }
+            existingUser.setRoles(user.getRoles());
+            userRepository.save(existingUser);
+        }
+    }
 
 
     @Transactional

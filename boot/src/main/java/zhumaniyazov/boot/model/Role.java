@@ -33,6 +33,10 @@ public class Role implements GrantedAuthority {
 
     }
 
+    public String getRoleNameWithoutPrefix() {
+        return name.substring(5);
+
+    }
 
     @Override
     public String getAuthority() {
