@@ -20,9 +20,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
 
-        return httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests.
-
-
+        return httpSecurity.csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/**")).
+                authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests.
+                        requestMatchers("/api/**").permitAll().
                         requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
 

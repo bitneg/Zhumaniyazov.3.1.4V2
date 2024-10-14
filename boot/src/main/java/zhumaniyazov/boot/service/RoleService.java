@@ -9,4 +9,6 @@ public interface RoleService {
     Role getRoleById(long id);
     Role save(Role role);
     Role findByName(String name);
+
+    boolean roleExists(Long roleId);
 }

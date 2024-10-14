@@ -30,7 +30,12 @@ public class RoleServiceImpl implements RoleService{
         return repositories.save(role);
     }
     public Role findByName(String name) {
-        return repositories.findByName(name);
+        return repositories.findByRoleName((name));
+    }
+
+    @Override
+    public boolean roleExists(Long roleId) {
+        return repositories.existsById(roleId);
     }
 
 }
