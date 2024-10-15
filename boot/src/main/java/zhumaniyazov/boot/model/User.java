@@ -37,9 +37,8 @@ public class User implements UserDetails {
     @Max(value = 120, message = "Возраст не должен превышать 120")
     private long age;
 
-    @Size(min = 6, message = "Пароль должен содержать не менее 6 символов")
+    @Size(min = 3, message = "Пароль должен содержать не менее 6 символов")
     private String password;
-
 
     @ManyToMany
     @JoinTable(
@@ -59,26 +58,10 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-
 
     @Override
     public String getUsername() {
